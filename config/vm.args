@@ -1,0 +1,4 @@
+-name hfay@127.0.0.1
+-setcookie hfay
+-heart
+-mnesia dir /tmp/db

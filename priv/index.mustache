@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How fast are you ?</title>
+  <style>
+    #play-button:disabled { animation: rotate .2s linear infinite; }
+    @keyframes rotate { 100% { transform: rotate(360deg); } }
+    #results-list li { animation: expand .5s ease-in-out; }
+    @keyframes expand { from { transform: scale(0); opacity: 0; } }
+  </style>
+</head>
+<body>
+  <form action="" method="get">
+    <input type="text" name="uuid" value="{{uuid}}" placeholder="Enter your uuid" required>
+    <button type="submit">Save</button>
+  </form>
+  <button id="play-button" type="button">Click</button>
+  <ul id="results-list">
+    {{#duration}}<li>{{duration}}ms</li>{{/duration}}
+  </ul>
+  <script>
+    let state = "start";
+    const [cookie, uuid] = document.cookie.match("uuid=([^;]*)");
+    const [playButton, resultsList] = document.querySelectorAll("#play-button, #results-list");
+    const socket = new WebSocket(`ws://${location.host}/ws`);
+    socket.onopen = function () {
+      setInterval(() => this.send(`ping:${uuid}`), 3000);
+    };
+    socket.onmessage = function (event) {
+      const [status, duration] = event.data.split(":");
+      if (status === "started") { state = "stop"; }
+      if (status === "stopped") {
+        const li = document.createElement("li");
+        li.appendChild(document.createTextNode(`${duration}ms`));
+        resultsList.insertBefore(li, resultsList.firstChild);
+        state = "start";
+      }
+      playButton.disabled = false;
+    };
+    playButton.onclick = function () {
+      socket.send(`${state}:${uuid}`);
+      this.disabled = true;
+    };
+  </script>
+</body>
+</html>

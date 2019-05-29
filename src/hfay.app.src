@@ -1,16 +1,9 @@
-{application, hfay,
- [{description, "An OTP application"},
+{application, hfay, [
+  {description, "How fast are you ?"},
   {vsn, "0.1.0"},
-  {registered, []},
+  {modules, [hfay_app, hfay_db, hfay_index_h, hfay_sup, hfay_uuid, hfay_ws_h]},
+  {registered, [hfay_sup]},
+  {applications, [kernel, stdlib, bbmustache, cowboy]},
   {mod, {hfay_app, []}},
-  {applications,
-   [kernel,
-    stdlib,
-    cowboy
-   ]},
-  {env,[]},
-  {modules, []},
-
-  {licenses, ["Apache 2.0"]},
-  {links, []}
- ]}.
+  {env, []}
+]}.
