@@ -26,9 +26,8 @@
 
     let state = "start";
     let socket = null;
-    let pingInterval = null;
 
-    function createSocket() {
+    function initSocket() {
       socket = new WebSocket(`ws://${location.host}/ws`);
       socket.onmessage = function (event) {
         const [status, duration] = event.data.split(":");
@@ -43,25 +42,20 @@
       };
     }
 
-    function startPing() {
-      setInterval(() => {
-        if (socket && socket.readyState === 1) { socket.send(`ping:${uuid}`); }
-      }, 3000);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      createSocket();
-      startPing();
-    });
-
     window.addEventListener("focus", function () {
-      if (socket.readyState === 3) { createSocket(); }
+      if (socket.readyState === 2 || socket.readyState === 3) { initSocket(); }
     });
 
     playButton.addEventListener("click", function () {
       socket.send(`${state}:${uuid}`);
       this.disabled = true;
     });
+
+    initSocket();
+
+    setInterval(() => {
+      if (socket.readyState === 1) { socket.send(`ping:${uuid}`); }
+    }, 3000);
   </script>
 </body>
 </html>
