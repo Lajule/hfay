@@ -21,28 +21,47 @@
     {{#duration}}<li>{{duration}}ms</li>{{/duration}}
   </ul>
   <script>
-    let state = "start";
     const [cookie, uuid] = document.cookie.match("uuid=([^;]*)");
     const [playButton, resultsList] = document.querySelectorAll("#play-button, #results-list");
-    const socket = new WebSocket(`ws://${location.host}/ws`);
-    socket.onopen = function () {
-      setInterval(() => this.send(`ping:${uuid}`), 3000);
-    };
-    socket.onmessage = function (event) {
-      const [status, duration] = event.data.split(":");
-      if (status === "started") { state = "stop"; }
-      if (status === "stopped") {
-        const li = document.createElement("li");
-        li.appendChild(document.createTextNode(`${duration}ms`));
-        resultsList.insertBefore(li, resultsList.firstChild);
-        state = "start";
-      }
-      playButton.disabled = false;
-    };
-    playButton.onclick = function () {
+
+    let state = "start";
+    let socket = null;
+    let pingInterval = null;
+
+    function createSocket() {
+      socket = new WebSocket(`ws://${location.host}/ws`);
+      socket.onmessage = function (event) {
+        const [status, duration] = event.data.split(":");
+        if (status === "started") { state = "stop"; }
+        if (status === "stopped") {
+          const li = document.createElement("li");
+          li.appendChild(document.createTextNode(`${duration}ms`));
+          resultsList.insertBefore(li, resultsList.firstChild);
+          state = "start";
+        }
+        playButton.disabled = false;
+      };
+    }
+
+    function startPing() {
+      setInterval(() => {
+        if (socket && socket.readyState === 1) { socket.send(`ping:${uuid}`); }
+      }, 3000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      createSocket();
+      startPing();
+    });
+
+    window.addEventListener("focus", function () {
+      if (socket.readyState === 3) { createSocket(); }
+    });
+
+    playButton.addEventListener("click", function () {
       socket.send(`${state}:${uuid}`);
       this.disabled = true;
-    };
+    });
   </script>
 </body>
 </html>
