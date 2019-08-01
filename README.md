@@ -1,11 +1,13 @@
 hfay
 =====
 
-An OTP application to demonstrate how to use [cowboy](https://github.com/ninenines/cowboy)'s websocket handler.
-The application also uses [mnesia](http://erlang.org/doc/man/mnesia.html) database provided with Erlang.
+An OTP application to demonstrate how to use [cowboy][1]'s websocket handler.
+This application also uses [mnesia][2] database provided with Erlang.
 
 Config
 ------
+
+You can configure HTTP server 
 
 ```
 [
@@ -27,3 +29,6 @@ Release
 -------
 
     $ rebar3 release
+
+[1]: https://github.com/ninenines/cowboy
+[2]: http://erlang.org/doc/man/mnesia.html
