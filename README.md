@@ -1,7 +1,7 @@
 hfay
 =====
 
-An OTP application to demonstrate how to use [cowboy][1]'s websocket handler.
+An OTP application to demonstrate how to use [cowboy][1]'s WebSocket handler.
 This application also uses [mnesia][2] database provided with Erlang.
 
 Config
@@ -29,6 +29,13 @@ You can launch the application now with following command :
 ```shell
 _build/default/rel/hfay_release/bin/hfay_release start
 ```
+
+WebSocket
+---------
+
+Basically the WebSocket handler calculate the duration between two messages, following diagram illustrate the flow of messages :
+
+![Sequence diagram](http://www.plantuml.com/plantuml/png/SoWkIImgAStDuNBEoKpDAr7GjLC8JYqgIosoKW1BMTc4Xdgws75111LqWV8GbL3vr1Gkh5hp2t3gX4WNfAPOsRY41Zc6UFhxsN4vfEQb09q10000)
 
 [1]: https://github.com/ninenines/cowboy
 [2]: http://erlang.org/doc/man/mnesia.html
