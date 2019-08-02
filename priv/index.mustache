@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>How fast are you ?</title>
   <style>
-    #play-button:disabled { animation: rotate .2s linear infinite; }
-    @keyframes rotate { 100% { transform: rotate(360deg); } }
+    #play-button:disabled { animation: flip .5s linear infinite; }
+    @keyframes flip { 100% { transform: rotateX(360deg); } }
     #results-list li { animation: expand .5s ease-in-out; }
     @keyframes expand { from { transform: scale(0); opacity: 0; } }
   </style>
