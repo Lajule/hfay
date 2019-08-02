@@ -29,7 +29,7 @@
 
     function initSocket() {
       socket = new WebSocket(`ws://${location.host}/ws`);
-      socket.onmessage = function (event) {
+      socket.onmessage = (event) => {
         const [status, duration] = event.data.split(":");
         if (status === "started") { state = "stop"; }
         if (status === "stopped") {
@@ -42,20 +42,21 @@
       };
     }
 
-    window.addEventListener("focus", function () {
+    document.addEventListener("DOMContentLoaded", () => {
+      initSocket();
+      setInterval(() => {
+        if (socket.readyState === 1) { socket.send(`ping:${uuid}`); }
+      }, 3000);
+    });
+
+    window.addEventListener("focus", () => {
       if (socket.readyState === 2 || socket.readyState === 3) { initSocket(); }
     });
 
-    playButton.addEventListener("click", function () {
+    playButton.addEventListener("click", () => {
       socket.send(`${state}:${uuid}`);
-      this.disabled = true;
+      playButton.disabled = true;
     });
-
-    initSocket();
-
-    setInterval(() => {
-      if (socket.readyState === 1) { socket.send(`ping:${uuid}`); }
-    }, 3000);
   </script>
 </body>
 </html>

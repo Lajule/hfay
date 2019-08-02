@@ -20,15 +20,16 @@ You can configure [cowboy][1] HTTP server port and [mnesia][2] database director
 ].
 ```
 
-Build
------
-
-    $ rebar3 compile
-
 Release
 -------
 
-    $ rebar3 release
+Use [rebar3][3] to build the application, typically type `rebar3 release` to build a release.
+You can launch the application now with following command :
+
+```shell
+_build/default/rel/hfay_release/bin/hfay_release start
+```
 
 [1]: https://github.com/ninenines/cowboy
 [2]: http://erlang.org/doc/man/mnesia.html
+[3]: https://www.rebar3.org/
