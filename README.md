@@ -33,7 +33,7 @@ _build/default/rel/hfay_release/bin/hfay_release start
 WebSocket
 ---------
 
-Basically the WebSocket handler calculate the duration between two messages, following diagram illustrate the flow of messages :
+Basically the WebSocket handler calculates the duration between two messages, following diagram illustrates the flow of messages :
 
 ![Sequence diagram](http://www.plantuml.com/plantuml/png/SoWkIImgAStDuNBEoKpDAr7GjLC8JYqgIosoKW1BMTc4Xdgws75111LqWV8GbL3vr1Gkh5hp2t3gX4WNfAPOsRY41Zc6UFhxsN4vfEQb09q10000)
 
