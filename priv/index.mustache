@@ -12,11 +12,15 @@
   </style>
 </head>
 <body>
+  <h1>HFAY</h1>
+  <h2>UUID</h2>
   <form action="" method="get">
     <input type="text" name="uuid" value="{{uuid}}" placeholder="Enter your uuid" required>
     <button type="submit">Save</button>
   </form>
+  <h2>Play</h2>
   <button id="play-button" type="button">Click</button>
+  <h2>Results</h2>
   <ul id="results-list">
     {{#duration}}<li>{{duration}}ms</li>{{/duration}}
   </ul>
