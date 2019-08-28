@@ -1,1 +1,1 @@
-web: rebar3 run
+web: _build/default/rel/hfay_release/bin/hfay_release start
