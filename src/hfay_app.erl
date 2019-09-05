@@ -11,6 +11,7 @@ start(_Type, _Args) ->
     {'_', [
       {"/", hfay_index_h, {bbmustache:parse_file(File)}},
       {"/favicon.ico", cowboy_static, {priv_file, hfay, "favicon.ico"}},
+      {"/static/[...]", cowboy_static, {priv_dir, hfay, "static"}},
       {"/ws", hfay_ws_h, []}
     ]}
   ]),

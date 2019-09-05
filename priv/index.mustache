@@ -4,58 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>How fast are you ?</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/mini-default.min.css">
+  <script src="static/reconnecting-websocket.min.js"></script>
+  <script src="static/hfay.js"></script>
 </head>
 <body>
-  <h1>HFAY</h1>
-  <h2>UUID</h2>
+  <h1>HFAY <small>How fast are you ?</small></h1>
   <form action="" method="get">
     <input type="text" name="uuid" value="{{uuid}}" placeholder="Enter your uuid" required>
     <button type="submit">Save</button>
   </form>
-  <h2>Play</h2>
-  <button id="play-button" type="button">Click</button>
-  <h2>Results</h2>
+  <button id="play-button" type="button" class="large">Click</button>
   <ul id="results-list">
     {{#duration}}<li>{{duration}}ms</li>{{/duration}}
   </ul>
-  <script>
-    const [cookie, uuid] = document.cookie.match("uuid=([^;]*)");
-    const [playButton, resultsList] = document.querySelectorAll("#play-button, #results-list");
-
-    let state = "start";
-    let socket = null;
-
-    function initSocket() {
-      socket = new WebSocket(`ws://${location.host}/ws`);
-      socket.onmessage = (event) => {
-        const [status, duration] = event.data.split(":");
-        if (status === "started") { state = "stop"; }
-        if (status === "stopped") {
-          const li = document.createElement("li");
-          li.appendChild(document.createTextNode(`${duration}ms`));
-          resultsList.insertBefore(li, resultsList.firstChild);
-          state = "start";
-        }
-        playButton.disabled = false;
-      };
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      initSocket();
-      setInterval(() => {
-        if (socket.readyState === 1) { socket.send(`ping:${uuid}`); }
-      }, 3000);
-    });
-
-    window.addEventListener("focus", () => {
-      if (socket.readyState === 2 || socket.readyState === 3) { initSocket(); }
-    });
-
-    playButton.addEventListener("click", () => {
-      socket.send(`${state}:${uuid}`);
-      playButton.disabled = true;
-    });
-  </script>
 </body>
 </html>
