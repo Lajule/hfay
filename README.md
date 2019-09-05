@@ -37,8 +37,6 @@ Basically the WebSocket handler calculates the duration between two messages, fo
 
 ![Sequence diagram](http://www.plantuml.com/plantuml/png/SoWkIImgAStDuNBEoKpDAr7GjLC8JYqgIosoKW1BMTc4Xdgws75111LqWV8GbL3vr1Gkh5hp2t3gX4WNfAPOsRY41Zc6UFhxsN4vfEQb09q10000)
 
-> The connection is kept alive by client ping messages, as it's recommended in [handler documentation](https://ninenines.eu/docs/en/cowboy/2.2/guide/ws_handlers/).
-
 [1]: https://github.com/ninenines/cowboy
 [2]: http://erlang.org/doc/man/mnesia.html
 [3]: https://www.rebar3.org/
