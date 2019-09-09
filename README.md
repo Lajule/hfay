@@ -37,6 +37,8 @@ Basically the WebSocket handler calculates the duration between two messages, fo
 
 ![Sequence diagram](http://www.plantuml.com/plantuml/png/SoWkIImgAStDuNBEoKpDAr7GjLC8JYqgIosoKW1BMTc4Xdgws75111LqWV8GbL3vr1Gkh5hp2t3gX4WNfAPOsRY41Zc6UFhxsN4vfEQb09q10000)
 
+> The client use [ReconnectingWebSocket](https://github.com/joewalnes/reconnecting-websocket) library to automatically reconnect if the connection is dropped.
+
 [1]: https://github.com/ninenines/cowboy
 [2]: http://erlang.org/doc/man/mnesia.html
 [3]: https://www.rebar3.org/

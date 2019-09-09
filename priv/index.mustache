@@ -11,10 +11,19 @@
 <body>
   <h1>HFAY <small>How fast are you ?</small></h1>
   <form action="" method="get">
-    <input type="text" name="uuid" value="{{uuid}}" placeholder="Enter your UUID" required>
-    <button type="submit">Save</button>
+    <fieldset>
+      <legend>Who are you ?</legend>
+      <div class="input-group fluid">
+        <label for="uuid">UUID</label>
+        <input type="text" id="uuid" name="uuid" value="{{uuid}}" placeholder="UUID" required>
+      </div>
+      <button type="submit">Save</button>
+    </fieldset>
   </form>
+  <br>
+  <p>Click on following button to play ! Wait ! Click again to stop the game !</p>
   <button id="play-button" type="button" class="large">Click</button>
+  <hr>
   <ul id="results-list">
     {{#duration}}<li>{{duration}}ms</li>{{/duration}}
   </ul>
