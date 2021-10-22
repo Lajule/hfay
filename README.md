@@ -27,7 +27,7 @@ Use [rebar3][3] to build the application, typically type `rebar3 release` to bui
 You can launch the application now with following command :
 
 ```shell
-_build/default/rel/hfay_release/bin/hfay_release start
+./_build/default/rel/hfay_release/bin/hfay_release start
 ```
 
 WebSocket
